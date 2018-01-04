@@ -1,0 +1,4 @@
+0 Jack vs. John
+1 John vs. Jack
+0 John vs. Jack
+0 Jack vs. John
