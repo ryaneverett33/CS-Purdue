@@ -7,3 +7,6 @@
 [submodule "CS390VR/390vr-final"]
 	path = CS390VR/390vr-final
 	url = https://github.com/Changer098/390vr-final
+[submodule "CS251"]
+	path = CS251
+	url = https://github.com/Changer098/CS251
