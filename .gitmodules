@@ -1,3 +1,6 @@
 [submodule "CS307/Schedule-It"]
 	path = CS307/Schedule-It
 	url = https://github.com/will-johnston/Schedule-It
+[submodule "CS390VR/CS390VR-Unity"]
+	path = CS390VR/CS390VR-Unity
+	url = https://github.com/Changer098/CS390VR-Unity
