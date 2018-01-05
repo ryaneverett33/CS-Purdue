@@ -4,3 +4,6 @@
 [submodule "CS390VR/CS390VR-Unity"]
 	path = CS390VR/CS390VR-Unity
 	url = https://github.com/Changer098/CS390VR-Unity
+[submodule "CS390VR/390vr-final"]
+	path = CS390VR/390vr-final
+	url = https://github.com/Changer098/390vr-final
