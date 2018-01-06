@@ -1,0 +1,13 @@
+#!/bin/bash
+
+(make clean; make) || exit 1
+
+source ../../tester/testall
+
+runtest testmemdump "1" none 0 3
+runtest testmemdump "2" none 0 3
+runtest testmemdump "3" none 0 3
+runtest testmemdump "4" none 0 3
+runtest testmemdump "5" none 0 3
+
+printResults

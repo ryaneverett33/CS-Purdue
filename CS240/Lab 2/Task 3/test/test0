@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "------ Test 0 -------"
+
+cd ../
+make -f Makefile clean
+
+make -f Makefile
+
+cd test/
+
+echo "Check if program exists"
+
+if [ ! -f ../high-low ]; then
+	echo ./high-low does not exist
+	exit 1
+fi
+
+echo ">>> Test0 passed"
+exit 0

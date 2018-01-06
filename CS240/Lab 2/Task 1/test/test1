@@ -1,0 +1,53 @@
+#!/usr/bin/expect -f
+
+puts "=========== Running Test 1 ============"
+
+source testing.tcl
+
+set timeout 2
+
+spawn ../maxmin
+match_max 100000
+myexpect  "Finding maximum among three numbers a,b and c\r
+Type a and <enter>: "
+send -- "13\r"
+myexpect  "13\r
+Type b and <enter>: "
+send -- "56\r"
+myexpect  "56\r
+Type c and <enter>: "
+send -- "76\r"
+myexpect  "76\r
+maximum = 76\r
+minimum = 13\r
+Do you want to continue? Type y/n and <enter>"
+send -- "y\r"
+myexpect  "y\r
+Type a and <enter>: "
+send -- "34\r"
+myexpect  "34\r
+Type b and <enter>: "
+send -- "23\r"
+myexpect  "23\r
+Type c and <enter>: "
+send -- "12\r"
+myexpect  "12\r
+maximum = 34\r
+minimum = 12\r
+Do you want to continue? Type y/n and <enter>"
+send -- "y\r"
+myexpect  "y\r
+Type a and <enter>: "
+send -- "12\r"
+myexpect  "12\r
+Type b and <enter>: "
+send -- "14\r"
+myexpect  "14\r
+Type c and <enter>: "
+send -- "99\r"
+myexpect  "99\r
+maximum = 99\r
+minimum = 12\r
+Do you want to continue? Type y/n and <enter>"
+send -- "n\r"
+myexpect eof

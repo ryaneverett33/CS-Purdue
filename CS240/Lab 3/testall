@@ -1,0 +1,17 @@
+#!/bin/bash
+
+{
+cd task2_currency
+./testall
+cd ../task3_triangle
+./testall
+cd ../task4_strings
+./testall
+} &> /dev/null
+
+cd ..
+cat task2_currency/total.out
+cat task3_triangle/total.out
+cat task4_strings/total.out
+
+cat total.out

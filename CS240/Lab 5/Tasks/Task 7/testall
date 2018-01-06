@@ -1,0 +1,17 @@
+#!/bin/bash
+
+(make clean; make) || exit 1
+
+source ../../tester/testall
+
+runtest word_sort "1 5 4 1 2 3" none 1 1
+runtest word_sort "3 5 4 1 2 3" none 1 1
+runtest word_sort "2 abc ABC DDD eef ee" none 1 1
+runtest word_sort "2 ABC ABC CBA AB C" none 1 1
+runtest word_sort "1 HELLO HELLo Hello HELlo hello" none 1 1
+runtest word_sort "1 haappppppppp haapppppppppp happppPppp Happy" none 1 1
+runtest word_sort "1" none 1 2
+runtest word_sort '1 ""' none 1 2
+
+
+printResults

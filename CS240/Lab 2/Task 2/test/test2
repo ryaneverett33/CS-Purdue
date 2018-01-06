@@ -1,0 +1,38 @@
+#!/usr/bin/expect -f
+
+puts "=========== Running Test 2 ============"
+
+source testing.tcl
+
+set timeout 2
+
+spawn ../circle
+match_max 100000
+myexpect  "Finding area and circumference of a circle given a radius\r
+Enter the radius and <enter>: "
+send -- "3.4\r"
+myexpect  "3.4\r
+Area is = 36.298400 \r
+Circumference is = 21.352000 \r
+Do you want to continue? Type y/n and <enter>"
+send -- "y\r"
+myexpect  "y\r
+Enter the radius and <enter>: "
+send -- "45.6\r"
+myexpect  "45.6\r
+Area is = 6529.190400 \r
+Circumference is = 286.368000 \r
+Do you want to continue? Type y/n and <enter>"
+send -- "y\r"
+myexpect  "y\r
+Enter the radius and <enter>: "
+send -- "23.45\r"
+myexpect  "23.45\r
+Area is = 1726.693850 \r
+Circumference is = 147.266000 \r
+Do you want to continue? Type y/n and <enter>"
+send -- "n\r"
+myexpect eof
+
+puts ">>>>>> Test2 passed"
+exit 0

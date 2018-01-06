@@ -1,0 +1,4 @@
+eBay 109.350000
+Microsoft 22.000000
+Samsung 35.700000
+Apple 500.120000

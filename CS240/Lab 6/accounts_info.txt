@@ -1,0 +1,4 @@
+Microsoft 22
+Apple 500.12
+eBay 109.35
+Samsung 35.70

@@ -1,0 +1,78 @@
+#!/bin/bash
+
+(make clean; make) || exit 1
+
+PROBLEM="Task2"
+
+if [ $# -ne 0 ]; then
+    CASES="${1}"
+else
+    CASES="student"
+fi
+
+echo $CASES
+
+total=0
+totalmax=0
+
+# Test driver
+function runtest {
+  prog=$1
+  args=$2
+  expoutput=$3
+  expretcode=$4
+  grade=$5
+  totalmax=`expr $totalmax + $grade`;
+  descr="$prog $args"
+
+  echo "======= $descr ==========="
+
+  #Run tested program
+  ./$prog $args > $prog.out 2>&1
+  errorcode=$?
+  if [ "$errorcode" != "$expretcode" ]; then
+     echo "Wrong return value from main, $expretcode != $errorcode"
+     cat $prog.out
+     echo "*****Test Failed*****";
+     return
+  fi
+
+  diff $prog.out <(echo "${expoutput}") > diff.out
+  if [ $? -eq 0 ] && [ $errorcode -eq $expretcode ]; then
+      cat diff.out
+      echo Test passed...;
+      printf "%-36s: %-3d of %-3d\n" "$descr " $grade $grade >> total.txt
+      total=`expr $total + $grade`;
+  else
+      echo "*****Test Failed*****";
+      echo "Your exit code: $errorcode, expected exit code: $expretcode"
+      echo ------ Your Output ----------
+      cat $prog.out
+      echo ------ Expected Output ------
+      echo "${expoutput}"
+      echo ------ Difference -----------
+      cat diff.out
+      echo -----------------------------
+      printf "%-36s: %-3d of %-3d\n" "$descr " 0 $grade >> total.txt
+  fi
+  echo
+}
+
+rm -f total.txt
+
+# List of tests running
+source ${CASES}.cases
+
+echo > total.out
+echo >> total.out
+echo   "-------------------------------------------------" >> total.out
+echo   "CS240 Midterm 1: ${PROBLEM}. $USER   " >> total.out
+date >> total.out
+echo   "-------------------------------------------------" >> total.out
+cat total.txt >> total.out >> total.out
+echo   "-------------------------------------------------" >> total.out
+echo   "CS240 - Midterm 1: ${PROBLEM}. $USER" `date` " Total: " $total of $totalmax >> total.out
+echo >> total.out
+
+cat total.out
+cat total.out >> .local.total.out

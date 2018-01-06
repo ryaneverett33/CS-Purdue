@@ -1,0 +1,41 @@
+#!/bin/bash
+
+OLD_PATH=${PATH}
+PATH=".:${PATH}"
+LAB="LAB5"
+finalGrade="0"
+finalTotal="0"
+
+echo "======Running Global Testall======"
+rm -f totalGrade.txt
+for d in tasks/*/ ; do
+    echo Enter $d
+    cd $d
+    echo -n ${d%?}: >> ../../totalGrade.txt
+    ./testall $((RANDOM + 1024))
+    grade="$(sed '2!d' total.out)"
+    total="$(sed '3!d' total.out)"
+    finalGrade=$((grade + finalGrade))
+    finalTotal=$((total + finalTotal))
+    echo -n " $grade/$total" >> ../../totalGrade.txt
+    echo >> ../../totalGrade.txt
+    make clean > /dev/null
+    cd ../..
+done
+echo >> totalGrade.txt
+echo   "CS240: $LAB. $USER" `date`  >> totalGrade.txt
+echo "Total Grade: $finalGrade/$finalTotal" >> totalGrade.txt
+cat totalGrade.txt
+
+# if the git repo has not been set, set it.
+if [ ! -f .local.git.out ]; then
+    git init
+fi
+
+#Do not remove or comment these lines. They are used for monitoring progress.
+#labout=/homes/cs240/LABOUT/$LAB/$USER/totalGrade.txt
+#cat totalGrade.txt >> $labout
+git add -A >> .local.git.out
+git commit -a -m "$finalGrade of $finalTotal" >> .local.git.out
+
+PATH=${OLD_PATH}

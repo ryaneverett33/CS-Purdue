@@ -1,0 +1,6 @@
+dollar 10.99 0.92
+euro 5.99 1.09
+badline
+euro 1 2
+pound 5.98 1.30
+

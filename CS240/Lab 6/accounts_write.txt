@@ -1,0 +1,6 @@
+eBay 109.350000
+Cummins 500.000000
+Tesla 5.000000
+Samsung 35.700000
+Apple 500.120000
+Google 900.000000

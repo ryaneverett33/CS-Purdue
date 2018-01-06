@@ -1,0 +1,16 @@
+#!/bin/bash
+
+(make clean; make) || exit 1
+
+source ../../tester/testall
+
+runtest nextword "\"abc ab\"" none 1 2
+runtest nextword "\"1 2 3 4 5 aa bb cc\"" none 1 2
+runtest nextword "\"  ddd d dd ddd d dd ddd    \"" none 1 2
+runtest nextword "\" a\"" none 1 2
+runtest nextword "\"b \"" none 1 2
+runtest nextword "\" c \"" none 1 2
+runtest nextword "\"How are you? I'm fine. Thank you.\"" none 1 2
+runtest nextword "\"       \"" none 1 2
+
+printResults

@@ -1,0 +1,6 @@
+# Student test cases
+runtest task2 "0" "[1, 2, 3, 4, 5]" 0 3
+runtest task2 "1" "[1, 2, 3, 4, 5]" 0 3
+runtest task2 "2" "[1, 4, 9, 16, 25]" 0 3
+runtest task2 "3" "[-1, -2, -3, -4, -5]" 0 3
+runtest task2 "4" "Vector lengths are not equal" 0 3
