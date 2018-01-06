@@ -10,3 +10,6 @@
 [submodule "CS251"]
 	path = CS251
 	url = https://github.com/Changer098/CS251
+[submodule "CS252/Labs/CS252-lab6"]
+	path = CS252/Labs/CS252-lab6
+	url = https://github.com/Changer098/CS252-lab6
