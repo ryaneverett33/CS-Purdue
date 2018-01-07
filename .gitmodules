@@ -13,3 +13,6 @@
 [submodule "CS252/Labs/CS252-lab6"]
 	path = CS252/Labs/CS252-lab6
 	url = https://github.com/Changer098/CS252-lab6
+[submodule "CS390VR/CS390VRWebPage"]
+	path = CS390VR/CS390VRWebPage
+	url = https://github.com/Retera/CS390VRWebPage
