@@ -1,0 +1,14 @@
+Features that work
+-Wildcarding
+-stupid subshells
+-partial line editor
+-variable prompt
+-Tilde expansion
+-Pid of shell process
+Features that don't work
+-Environment variables like${this}
+-All the other special environment variables
+-None of that extra credit
+-Line editor isn't quite as fancy
+=Some IO just doesn't work (test4)
+

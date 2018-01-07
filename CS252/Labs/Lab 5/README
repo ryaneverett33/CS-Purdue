@@ -1,0 +1,10 @@
+Features that work: all features
+Features that don't work: none
+Extra features:
+Live updating of directory template
+SERVER_PORT
+CONTENT_LENGTH
+SERVER_SOFTWARE
+SERVER_NAME
+SCRIPT_NAME
+SERVER_PROTOCOL

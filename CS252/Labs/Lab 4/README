@@ -1,0 +1,8 @@
+Step 3: thr1 prints the letters 'A', 'B', and 'C' at effecitvely random intervals to the screen. Output is continous unless program is killed. Most of the time, you get long continous strings of the same letter. Other times you get interrupted strings or shorter strings with all three letters in them. 
+Step 5: Prints only C's because the printC while loop is entered before starting threads one and two. So only the letter C can be printed because the option to start printing A or B is never reached.
+
+Part 3
+											| System Time	| User Time	| Real Time |
+pthread_mutex(count)						|	2.204		|	2.772	|	2.645	|
+spin_lock (count_spin with thr_yield)		|	0.280		|	0.912	|	0.619	|
+spin_lock (count_spin without thr_yield)	|	0			|	4.964	|	2.557	|

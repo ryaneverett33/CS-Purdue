@@ -1,0 +1,302 @@
+<html>
+<head>
+    <script type="text/javascript">
+        //0 for ascending, 1 descending
+        var sorted = -1;
+        //0 for name, 1 for size, 2 for time
+        var type = -1;
+        //swap a with b
+        function sizeSort() {
+            console.log("Sort size by", sorted);
+            console.log("Sort name by", sorted);
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("main-table");
+            switching = true;
+            /* Make a loop that will continue until
+                          no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /* Loop through all table rows (except the
+                            first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                              one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[2];
+                    y = rows[i + 1].getElementsByTagName("TD")[2];
+                    // Check if the two rows should switch place:
+                    if (sorted == 0) {
+                        //sort ascending
+                        if (x.innerText.toLowerCase() > y.innerText.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        //sort descending
+                        if (x.innerText.toLowerCase() < y.innerText.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                              and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+        function nameSort() {
+            console.log("Sort name by", sorted);
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("main-table");
+            switching = true;
+            /* Make a loop that will continue until
+                          no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /* Loop through all table rows (except the
+                            first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                              one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[1];
+                    y = rows[i + 1].getElementsByTagName("TD")[1];
+                    // Check if the two rows should switch place:
+                    if (sorted == 0) {
+                        //sort ascending
+                        if (x.innerText.toLowerCase() > y.innerText.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        //sort descending
+                        if (x.innerText.toLowerCase() < y.innerText.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                              and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+        function timeSort() {
+            console.log("Sort time by", sorted);
+            console.log("Sort name by", sorted);
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("main-table");
+            switching = true;
+            /* Make a loop that will continue until
+                          no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /* Loop through all table rows (except the
+                            first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                              one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[3];
+                    y = rows[i + 1].getElementsByTagName("TD")[3];
+                    // Check if the two rows should switch place:
+                    if (sorted == 0) {
+                        //sort ascending
+                        if (x.innerText.toLowerCase() > y.innerText.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        //sort descending
+                        if (x.innerText.toLowerCase() < y.innerText.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                              and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+        function resolveName(newType) {
+            var response = "";
+            switch (newType) {
+                case 0:
+                    response = "Name";
+                    break;
+                case 1:
+                    response = "Size";
+                    break;
+                case 2:
+                    response = "Modification Time";
+                    break;
+            }
+            if (type != newType) {
+                type = newType;
+                sorted = 0;
+                response += " Asc.";
+            }
+            else {
+                if (sorted == 0) {
+                    sorted = 1;
+                    response += " Desc.";
+                }
+                else {
+                    sorted = 0;
+                    response += " Asc.";
+                }
+            }
+            switch (newType) {
+                case 0:
+                    document.getElementById("nameBtn").innerText = response;
+                    document.getElementById("sizeBtn").innerText = "Size";
+                    document.getElementById("timeBtn").innerText = "Modification Time";
+                    break;
+                case 1:
+                    document.getElementById("nameBtn").innerText = "Name";
+                    document.getElementById("sizeBtn").innerText = response;
+                    document.getElementById("timeBtn").innerText = "Modification Time";
+                    break;
+                case 2:
+                    document.getElementById("nameBtn").innerText = "Name";
+                    document.getElementById("sizeBtn").innerText = "Size";
+                    document.getElementById("timeBtn").innerText = response;
+                    break;
+            }
+            return response;
+        }
+        function sort(column) {
+            if (column == 0) {
+                resolveName(0);
+                nameSort();
+            }
+            else if (column == 1) {
+                resolveName(1);
+                sizeSort();
+            }
+            else if (column == 2) {
+                resolveName(2);
+                timeSort();
+            }
+        }
+        function isFolder(size) {
+            if (size == 4096) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        //takes http-root-dir and formats into an image 
+        function makeImage(link) {
+            var message = "<img";
+            message += " src=\"";
+            message += link;
+            message += "\" height=\"50\" width=\"50\" />";
+            return message;
+        }
+        function goback() {
+            var location = window.location.href;
+            var index = -1;
+            if (location.slice(-1) == '/' && location.slice(-2) == "//") {
+                location = location.substr(0, location.length - 2);
+            }
+            else if (location.slice(-1) == '/') {
+                location = location.substr(0, location.length - 1);
+            }
+            else {
+                console.log("end of location:", location[location.length]);
+            }
+            for (var i = 0; i < location.length; i++) {
+                if (location[i] == '/') {
+                    index = i;
+                }
+            }
+            return location.substr(0, index);
+            //return location.substr(0, location.lastIndexOf("/"));
+        } 
+        function makeHyperlink(text) {
+            var formattedLink;
+            if (text === "..") {
+                console.log("going back");
+                formattedLink = goback();
+            }
+            else if (text === ".") {
+                console.log("self");
+                formattedLink = window.location.href;
+            }
+            else {
+                formattedLink = window.location.href + "/" + text;
+            }
+            console.log("formatte link", formattedLink);
+            var message = "<a href=\"";
+            message += formattedLink;
+            message += "\" target=\"_self\">";
+            message += text;
+            message += "</>"
+            return message;
+        }
+        function init() {
+            var folderLink = "/11011/templates/folder-icon.png";
+            var fileLink = "/11011/templates/file-icon.png";
+            console.log("called init");
+            var table = document.getElementById("main-table");
+            var length = table.rows.length;
+            for (var i = 1; i < length; i++) {
+                table.rows.item(i).id = i;
+                var cells = table.rows.item(i).cells;
+                var cellLen = cells.length;
+                for (var j = 0; j < cellLen - 2; j++) {
+                    console.log(cells.item(j).innerText);
+                    switch (j) {
+                        case 0:
+                            //format icon
+                            if (isFolder(parseInt(cells.item(2).innerText))) {
+                                //console.log("is a folder");
+                                cells.item(0).innerHTML = makeImage(folderLink);
+                            }
+                            else {
+                                //console.log("is a file");
+                                cells.item(0).innerHTML = makeImage(fileLink);
+                            }
+                            continue;
+                        case 1:
+                            console.log("new link", makeHyperlink(cells.item(1).innerText));
+                            cells.item(1).innerHTML = makeHyperlink(cells.item(1).innerText);
+                            continue;
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="init()">
+<table id="main-table">
+<tr id="headers">
+    <th style="min-width: 200">..</th>
+    <th style="min-width: 200"><button onclick='sort(0)' id="nameBtn">Name</button></th>
+    <th style="min-width: 200"><button onclick='sort(1)' id="sizeBtn">Size</button></th>
+    <th style="min-width: 200"><button onclick='sort(2)' id="timeBtn">Modification Time</button></th>
+</tr>
