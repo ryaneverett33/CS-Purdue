@@ -19,6 +19,5 @@ Virtual](https://github.com/Changer098/CS-Purdue/tree/master/CS240/Lab%207)
 ### Exams
 - [Midterm 
 2](https://github.com/Changer098/CS-Purdue/tree/master/CS240/Midterm%202)
-- 
-[Final](https://github.com/Changer098/CS-Purdue/tree/master/CS240/Final%20Exam)
+- [Final](https://github.com/Changer098/CS-Purdue/tree/master/CS240/Final%20Exam)
 
