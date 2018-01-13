@@ -1,0 +1,5 @@
+J0 = (Shift NAND ShiftIn) NAND (Load NAND D0)
+K0 = (Shift NAND NOT(ShiftIn)) NAND (Load NAND NOT(D0))
+J1 = (Shift NAND Q0) NAND (Load NAND D1)
+K1 = (Shift NAND NOT(Q0)) NAND (Load NAND NOT(D1))
+D0 D1 Load Shift (ShiftIn bus 33)

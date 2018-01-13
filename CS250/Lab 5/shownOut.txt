@@ -1,0 +1,14 @@
+0x7ede1608: A.......0......~ //x.a, x.i, x.b, x.p
+0x7ede1618: ......(@........ //y, b, a
+0x7ede1628: Hello world..... //str
+0x7ede1638: ................
+
+0x6d6008: .`m.(`m......... 	//head
+0x6d6018: Welcome ........	//head->str, 
+0x6d6028: 8`m.H`m.........	//head->next
+0x6d6038: to .............	//head->next->str
+0x6d6048: X`m.............	//head->next->next
+0x6d6058: cs250...........	//head->next->next->str
+0x6d6068: ................	
+0x6d6078: ................
+//head->next->next->next is not assigned
