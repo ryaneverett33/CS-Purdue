@@ -1,0 +1,3 @@
+client.c
+'OPEN ' segfaults - FIXED
+prints non-terminated messages - FIXED

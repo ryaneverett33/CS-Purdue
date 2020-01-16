@@ -1,0 +1,2 @@
+# README
+All functions should be working properly. packetdump() gets called after converting to host order so endianess is handled in packetdump(). packetdump_out() gets called in ip_out() after converting to network order, so only ether_type's endianess is handled. I also added the packetdump() and packetdump_out() function definitions to prototypes.h.
