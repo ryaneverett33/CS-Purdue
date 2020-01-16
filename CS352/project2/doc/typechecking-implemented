@@ -1,0 +1,29 @@
+Implemented     X
+needs arrays    a
+needs work      w
+
+Statements-------
+List            X 
+SBool           X
+Print           X
+Assign          X
+Return          X
+Empty           X
+
+Expressions------
+Binary          X
+Unary           X
+Index           X
+Length          X
+Parens          X
+IndexLength     X
+INT_LITERAL     X
+EBool           X
+Object          X
+ObjectCall      X
+
+Index------------
+Index           X
+
+Object-----------
+Object          X

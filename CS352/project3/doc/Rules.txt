@@ -1,0 +1,6 @@
+Extend Rules
+A extends B
+A inherits members from B
+B does not inherit members from A
+
+System.out.println() can only print strings and integers

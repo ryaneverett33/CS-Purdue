@@ -1,0 +1,2 @@
+# Optimizations made
+- Immediate value optimization at compile-time (e.g. (5+6+7+4+6+1) becomes (29))

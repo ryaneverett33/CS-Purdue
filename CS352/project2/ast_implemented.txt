@@ -1,0 +1,15 @@
+Program / C
+MainClass / C
+ClassDecl / C
+VarDecl / C S
+MethodDecl / C
+FormalList / C
+FormalRest / C
+PrimeType / C S
+Type / C S
+Statement / C
+Index / C
+Exp /
+Object / C S*
+ExpList / C
+ExpRest / C

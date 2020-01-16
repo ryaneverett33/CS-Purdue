@@ -1,0 +1,2841 @@
+Terminals unused in grammar
+
+   VOID
+   OBJECT
+   DOUBLEPLUS
+   INVALID
+   DOUBLEMINUS
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: MainClass ClassDeclList
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' ID ')' '{' Statement '}' '}'
+
+    3 ClassDeclList: ClassDeclList ClassDecl
+    4              | %empty
+
+    5 ClassDecl: CLASS ID '{' VarDeclList MethodDeclList '}'
+    6          | CLASS ID EXTENDS ID '{' VarDeclList MethodDeclList '}'
+
+    7 MethodDeclList: MethodDeclList MethodDecl
+    8               | %empty
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type ID '(' FormalList ')' '{' VarDeclList RETURN Exp ';' '}'
+
+   11 FormalList: Type ID FormalRestList
+   12           | %empty
+
+   13 FormalRestList: FormalRestList FormalRest
+   14               | %empty
+
+   15 FormalRest: ',' Type ID
+
+   16 Type: PrimeType
+   17     | Type '[' ']'
+
+   18 PrimeType: INT
+   19          | BOOLEAN
+   20          | ID
+
+   21 TypeB: PrimeTypeB
+   22      | TypeB '[' ']'
+   23      | ID '[' ']'
+
+   24 PrimeTypeB: INT
+   25           | BOOLEAN
+
+   26 VarDeclList: VarDeclList VarDecl
+   27            | %empty
+
+   28 VarDecl: TypeB ID ';'
+   29        | ID ID ';'
+
+   30 Object: ID
+   31       | THIS
+   32       | NEW ID '(' ')'
+   33       | NEW PrimeType Index
+
+   34 ObjectB: THIS
+   35        | NEW ID '(' ')'
+   36        | NEW PrimeType Index
+
+   37 StatementList: StatementList Statement
+   38              | Statement
+
+   39 Statement: '{' StatementList '}'
+   40          | '{' '}'
+   41          | IF '(' Exp ')' Statement ELSE Statement
+   42          | WHILE '(' Exp ')' Statement
+   43          | PRINTLN '(' Exp ')' ';'
+   44          | PRINTLN '(' STRING_LITERAL ')' ';'
+   45          | PRINT '(' Exp ')' ';'
+   46          | PRINT '(' STRING_LITERAL ')' ';'
+   47          | ID '=' Exp ';'
+   48          | ID Index '=' Exp ';'
+   49          | RETURN Exp ';'
+
+   50 Index: '[' Exp ']'
+   51      | Index '[' Exp ']'
+
+   52 Exp: Exp BOOLAND Exp
+   53    | Exp BOOLOR Exp
+   54    | Exp BOOLEQUAL Exp
+   55    | Exp BOOLNOTEQUAL Exp
+   56    | Exp LESSTHANEQUALTO Exp
+   57    | Exp GREATERTHANEQUALTO Exp
+   58    | Exp '<' Exp
+   59    | Exp '>' Exp
+   60    | Exp '+' Exp
+   61    | Exp '-' Exp
+   62    | Exp '*' Exp
+   63    | Exp '/' Exp
+   64    | '!' Exp
+   65    | '-' Exp
+   66    | '+' Exp
+   67    | INTEGER_LITERAL
+   68    | TTRUE
+   69    | TFALSE
+   70    | Object
+   71    | '(' Exp ')'
+   72    | ID Index
+   73    | ID '.' LENGTH
+   74    | ID Index '.' LENGTH
+   75    | ID '.' ID '(' ExpList ')'
+   76    | ObjectB '.' ID '(' ExpList ')'
+
+   77 ExpList: Exp ExpRestList
+   78        | %empty
+
+   79 ExpRestList: ExpRestList ExpRest
+   80            | %empty
+
+   81 ExpRest: ',' Exp
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'!' (33) 64
+'(' (40) 2 9 10 32 35 41 42 43 44 45 46 71 75 76
+')' (41) 2 9 10 32 35 41 42 43 44 45 46 71 75 76
+'*' (42) 62
+'+' (43) 60 66
+',' (44) 15 81
+'-' (45) 61 65
+'.' (46) 73 74 75 76
+'/' (47) 63
+';' (59) 9 10 28 29 43 44 45 46 47 48 49
+'<' (60) 58
+'=' (61) 47 48
+'>' (62) 59
+'[' (91) 2 17 22 23 50 51
+']' (93) 2 17 22 23 50 51
+'{' (123) 2 5 6 9 10 39 40
+'}' (125) 2 5 6 9 10 39 40
+error (256)
+PRINTLN (258) 43 44
+INT (259) 18 24
+VOID (260)
+IF (261) 41
+WHILE (262) 42
+TTRUE (263) 68
+TFALSE (264) 69
+OBJECT (265)
+THIS (266) 31 34
+NEW (267) 32 33 35 36
+MAINCLASS (268) 2
+CLASS (269) 2 5 6
+PUBLIC (270) 9 10
+STRING (271) 2
+RETURN (272) 9 10 49
+LENGTH (273) 73 74
+DOUBLEPLUS (274)
+BOOLAND (275) 52
+BOOLOR (276) 53
+LESSTHANEQUALTO (277) 56
+GREATERTHANEQUALTO (278) 57
+BOOLEQUAL (279) 54
+BOOLNOTEQUAL (280) 55
+ID (281) 2 5 6 9 10 11 15 20 23 28 29 30 32 35 47 48 72 73 74 75 76
+INTEGER_LITERAL (282) 67
+STRING_LITERAL (283) 44 46
+BOOLEAN (284) 19 25
+EXTENDS (285) 6
+ELSE (286) 41
+INVALID (287)
+DOUBLEMINUS (288)
+PRINT (289) 45 46
+
+
+Nonterminals, with rules where they appear
+
+$accept (52)
+    on left: 0
+Program (53)
+    on left: 1, on right: 0
+MainClass (54)
+    on left: 2, on right: 1
+ClassDeclList (55)
+    on left: 3 4, on right: 1 3
+ClassDecl (56)
+    on left: 5 6, on right: 3
+MethodDeclList (57)
+    on left: 7 8, on right: 5 6 7
+MethodDecl (58)
+    on left: 9 10, on right: 7
+FormalList (59)
+    on left: 11 12, on right: 9 10
+FormalRestList (60)
+    on left: 13 14, on right: 11 13
+FormalRest (61)
+    on left: 15, on right: 13
+Type (62)
+    on left: 16 17, on right: 9 10 11 15 17
+PrimeType (63)
+    on left: 18 19 20, on right: 16 33 36
+TypeB (64)
+    on left: 21 22 23, on right: 22 28
+PrimeTypeB (65)
+    on left: 24 25, on right: 21
+VarDeclList (66)
+    on left: 26 27, on right: 5 6 9 10 26
+VarDecl (67)
+    on left: 28 29, on right: 26
+Object (68)
+    on left: 30 31 32 33, on right: 70
+ObjectB (69)
+    on left: 34 35 36, on right: 76
+StatementList (70)
+    on left: 37 38, on right: 9 37 39
+Statement (71)
+    on left: 39 40 41 42 43 44 45 46 47 48 49, on right: 2 37 38 41
+    42
+Index (72)
+    on left: 50 51, on right: 33 36 48 51 72 74
+Exp (73)
+    on left: 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69
+    70 71 72 73 74 75 76, on right: 9 10 41 42 43 45 47 48 49 50 51
+    52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 71 77 81
+ExpList (74)
+    on left: 77 78, on right: 75 76
+ExpRestList (75)
+    on left: 79 80, on right: 77 79
+ExpRest (76)
+    on left: 81, on right: 79
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    CLASS  shift, and go to state 1
+
+    Program    go to state 2
+    MainClass  go to state 3
+
+
+State 1
+
+    2 MainClass: CLASS . ID '{' MAINCLASS '(' STRING '[' ']' ID ')' '{' Statement '}' '}'
+
+    ID  shift, and go to state 4
+
+
+State 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 5
+
+
+State 3
+
+    1 Program: MainClass . ClassDeclList
+
+    $default  reduce using rule 4 (ClassDeclList)
+
+    ClassDeclList  go to state 6
+
+
+State 4
+
+    2 MainClass: CLASS ID . '{' MAINCLASS '(' STRING '[' ']' ID ')' '{' Statement '}' '}'
+
+    '{'  shift, and go to state 7
+
+
+State 5
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 6
+
+    1 Program: MainClass ClassDeclList .
+    3 ClassDeclList: ClassDeclList . ClassDecl
+
+    CLASS  shift, and go to state 8
+
+    $default  reduce using rule 1 (Program)
+
+    ClassDecl  go to state 9
+
+
+State 7
+
+    2 MainClass: CLASS ID '{' . MAINCLASS '(' STRING '[' ']' ID ')' '{' Statement '}' '}'
+
+    MAINCLASS  shift, and go to state 10
+
+
+State 8
+
+    5 ClassDecl: CLASS . ID '{' VarDeclList MethodDeclList '}'
+    6          | CLASS . ID EXTENDS ID '{' VarDeclList MethodDeclList '}'
+
+    ID  shift, and go to state 11
+
+
+State 9
+
+    3 ClassDeclList: ClassDeclList ClassDecl .
+
+    $default  reduce using rule 3 (ClassDeclList)
+
+
+State 10
+
+    2 MainClass: CLASS ID '{' MAINCLASS . '(' STRING '[' ']' ID ')' '{' Statement '}' '}'
+
+    '('  shift, and go to state 12
+
+
+State 11
+
+    5 ClassDecl: CLASS ID . '{' VarDeclList MethodDeclList '}'
+    6          | CLASS ID . EXTENDS ID '{' VarDeclList MethodDeclList '}'
+
+    EXTENDS  shift, and go to state 13
+    '{'      shift, and go to state 14
+
+
+State 12
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' . STRING '[' ']' ID ')' '{' Statement '}' '}'
+
+    STRING  shift, and go to state 15
+
+
+State 13
+
+    6 ClassDecl: CLASS ID EXTENDS . ID '{' VarDeclList MethodDeclList '}'
+
+    ID  shift, and go to state 16
+
+
+State 14
+
+    5 ClassDecl: CLASS ID '{' . VarDeclList MethodDeclList '}'
+
+    $default  reduce using rule 27 (VarDeclList)
+
+    VarDeclList  go to state 17
+
+
+State 15
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING . '[' ']' ID ')' '{' Statement '}' '}'
+
+    '['  shift, and go to state 18
+
+
+State 16
+
+    6 ClassDecl: CLASS ID EXTENDS ID . '{' VarDeclList MethodDeclList '}'
+
+    '{'  shift, and go to state 19
+
+
+State 17
+
+    5 ClassDecl: CLASS ID '{' VarDeclList . MethodDeclList '}'
+   26 VarDeclList: VarDeclList . VarDecl
+
+    INT      shift, and go to state 20
+    ID       shift, and go to state 21
+    BOOLEAN  shift, and go to state 22
+
+    $default  reduce using rule 8 (MethodDeclList)
+
+    MethodDeclList  go to state 23
+    TypeB           go to state 24
+    PrimeTypeB      go to state 25
+    VarDecl         go to state 26
+
+
+State 18
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' . ']' ID ')' '{' Statement '}' '}'
+
+    ']'  shift, and go to state 27
+
+
+State 19
+
+    6 ClassDecl: CLASS ID EXTENDS ID '{' . VarDeclList MethodDeclList '}'
+
+    $default  reduce using rule 27 (VarDeclList)
+
+    VarDeclList  go to state 28
+
+
+State 20
+
+   24 PrimeTypeB: INT .
+
+    $default  reduce using rule 24 (PrimeTypeB)
+
+
+State 21
+
+   23 TypeB: ID . '[' ']'
+   29 VarDecl: ID . ID ';'
+
+    ID   shift, and go to state 29
+    '['  shift, and go to state 30
+
+
+State 22
+
+   25 PrimeTypeB: BOOLEAN .
+
+    $default  reduce using rule 25 (PrimeTypeB)
+
+
+State 23
+
+    5 ClassDecl: CLASS ID '{' VarDeclList MethodDeclList . '}'
+    7 MethodDeclList: MethodDeclList . MethodDecl
+
+    PUBLIC  shift, and go to state 31
+    '}'     shift, and go to state 32
+
+    MethodDecl  go to state 33
+
+
+State 24
+
+   22 TypeB: TypeB . '[' ']'
+   28 VarDecl: TypeB . ID ';'
+
+    ID   shift, and go to state 34
+    '['  shift, and go to state 35
+
+
+State 25
+
+   21 TypeB: PrimeTypeB .
+
+    $default  reduce using rule 21 (TypeB)
+
+
+State 26
+
+   26 VarDeclList: VarDeclList VarDecl .
+
+    $default  reduce using rule 26 (VarDeclList)
+
+
+State 27
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' . ID ')' '{' Statement '}' '}'
+
+    ID  shift, and go to state 36
+
+
+State 28
+
+    6 ClassDecl: CLASS ID EXTENDS ID '{' VarDeclList . MethodDeclList '}'
+   26 VarDeclList: VarDeclList . VarDecl
+
+    INT      shift, and go to state 20
+    ID       shift, and go to state 21
+    BOOLEAN  shift, and go to state 22
+
+    $default  reduce using rule 8 (MethodDeclList)
+
+    MethodDeclList  go to state 37
+    TypeB           go to state 24
+    PrimeTypeB      go to state 25
+    VarDecl         go to state 26
+
+
+State 29
+
+   29 VarDecl: ID ID . ';'
+
+    ';'  shift, and go to state 38
+
+
+State 30
+
+   23 TypeB: ID '[' . ']'
+
+    ']'  shift, and go to state 39
+
+
+State 31
+
+    9 MethodDecl: PUBLIC . Type ID '(' FormalList ')' '{' VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC . Type ID '(' FormalList ')' '{' VarDeclList RETURN Exp ';' '}'
+
+    INT      shift, and go to state 40
+    ID       shift, and go to state 41
+    BOOLEAN  shift, and go to state 42
+
+    Type       go to state 43
+    PrimeType  go to state 44
+
+
+State 32
+
+    5 ClassDecl: CLASS ID '{' VarDeclList MethodDeclList '}' .
+
+    $default  reduce using rule 5 (ClassDecl)
+
+
+State 33
+
+    7 MethodDeclList: MethodDeclList MethodDecl .
+
+    $default  reduce using rule 7 (MethodDeclList)
+
+
+State 34
+
+   28 VarDecl: TypeB ID . ';'
+
+    ';'  shift, and go to state 45
+
+
+State 35
+
+   22 TypeB: TypeB '[' . ']'
+
+    ']'  shift, and go to state 46
+
+
+State 36
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' ID . ')' '{' Statement '}' '}'
+
+    ')'  shift, and go to state 47
+
+
+State 37
+
+    6 ClassDecl: CLASS ID EXTENDS ID '{' VarDeclList MethodDeclList . '}'
+    7 MethodDeclList: MethodDeclList . MethodDecl
+
+    PUBLIC  shift, and go to state 31
+    '}'     shift, and go to state 48
+
+    MethodDecl  go to state 33
+
+
+State 38
+
+   29 VarDecl: ID ID ';' .
+
+    $default  reduce using rule 29 (VarDecl)
+
+
+State 39
+
+   23 TypeB: ID '[' ']' .
+
+    $default  reduce using rule 23 (TypeB)
+
+
+State 40
+
+   18 PrimeType: INT .
+
+    $default  reduce using rule 18 (PrimeType)
+
+
+State 41
+
+   20 PrimeType: ID .
+
+    $default  reduce using rule 20 (PrimeType)
+
+
+State 42
+
+   19 PrimeType: BOOLEAN .
+
+    $default  reduce using rule 19 (PrimeType)
+
+
+State 43
+
+    9 MethodDecl: PUBLIC Type . ID '(' FormalList ')' '{' VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type . ID '(' FormalList ')' '{' VarDeclList RETURN Exp ';' '}'
+   17 Type: Type . '[' ']'
+
+    ID   shift, and go to state 49
+    '['  shift, and go to state 50
+
+
+State 44
+
+   16 Type: PrimeType .
+
+    $default  reduce using rule 16 (Type)
+
+
+State 45
+
+   28 VarDecl: TypeB ID ';' .
+
+    $default  reduce using rule 28 (VarDecl)
+
+
+State 46
+
+   22 TypeB: TypeB '[' ']' .
+
+    $default  reduce using rule 22 (TypeB)
+
+
+State 47
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' ID ')' . '{' Statement '}' '}'
+
+    '{'  shift, and go to state 51
+
+
+State 48
+
+    6 ClassDecl: CLASS ID EXTENDS ID '{' VarDeclList MethodDeclList '}' .
+
+    $default  reduce using rule 6 (ClassDecl)
+
+
+State 49
+
+    9 MethodDecl: PUBLIC Type ID . '(' FormalList ')' '{' VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type ID . '(' FormalList ')' '{' VarDeclList RETURN Exp ';' '}'
+
+    '('  shift, and go to state 52
+
+
+State 50
+
+   17 Type: Type '[' . ']'
+
+    ']'  shift, and go to state 53
+
+
+State 51
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' ID ')' '{' . Statement '}' '}'
+
+    PRINTLN  shift, and go to state 54
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 57
+    ID       shift, and go to state 58
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+
+    Statement  go to state 61
+
+
+State 52
+
+    9 MethodDecl: PUBLIC Type ID '(' . FormalList ')' '{' VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type ID '(' . FormalList ')' '{' VarDeclList RETURN Exp ';' '}'
+
+    INT      shift, and go to state 40
+    ID       shift, and go to state 41
+    BOOLEAN  shift, and go to state 42
+
+    $default  reduce using rule 12 (FormalList)
+
+    FormalList  go to state 62
+    Type        go to state 63
+    PrimeType   go to state 44
+
+
+State 53
+
+   17 Type: Type '[' ']' .
+
+    $default  reduce using rule 17 (Type)
+
+
+State 54
+
+   43 Statement: PRINTLN . '(' Exp ')' ';'
+   44          | PRINTLN . '(' STRING_LITERAL ')' ';'
+
+    '('  shift, and go to state 64
+
+
+State 55
+
+   41 Statement: IF . '(' Exp ')' Statement ELSE Statement
+
+    '('  shift, and go to state 65
+
+
+State 56
+
+   42 Statement: WHILE . '(' Exp ')' Statement
+
+    '('  shift, and go to state 66
+
+
+State 57
+
+   49 Statement: RETURN . Exp ';'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 79
+
+
+State 58
+
+   47 Statement: ID . '=' Exp ';'
+   48          | ID . Index '=' Exp ';'
+
+    '['  shift, and go to state 80
+    '='  shift, and go to state 81
+
+    Index  go to state 82
+
+
+State 59
+
+   45 Statement: PRINT . '(' Exp ')' ';'
+   46          | PRINT . '(' STRING_LITERAL ')' ';'
+
+    '('  shift, and go to state 83
+
+
+State 60
+
+   39 Statement: '{' . StatementList '}'
+   40          | '{' . '}'
+
+    PRINTLN  shift, and go to state 54
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 57
+    ID       shift, and go to state 58
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+    '}'      shift, and go to state 84
+
+    StatementList  go to state 85
+    Statement      go to state 86
+
+
+State 61
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' ID ')' '{' Statement . '}' '}'
+
+    '}'  shift, and go to state 87
+
+
+State 62
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList . ')' '{' VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type ID '(' FormalList . ')' '{' VarDeclList RETURN Exp ';' '}'
+
+    ')'  shift, and go to state 88
+
+
+State 63
+
+   11 FormalList: Type . ID FormalRestList
+   17 Type: Type . '[' ']'
+
+    ID   shift, and go to state 89
+    '['  shift, and go to state 50
+
+
+State 64
+
+   43 Statement: PRINTLN '(' . Exp ')' ';'
+   44          | PRINTLN '(' . STRING_LITERAL ')' ';'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    STRING_LITERAL   shift, and go to state 90
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 91
+
+
+State 65
+
+   41 Statement: IF '(' . Exp ')' Statement ELSE Statement
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 92
+
+
+State 66
+
+   42 Statement: WHILE '(' . Exp ')' Statement
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 93
+
+
+State 67
+
+   68 Exp: TTRUE .
+
+    $default  reduce using rule 68 (Exp)
+
+
+State 68
+
+   69 Exp: TFALSE .
+
+    $default  reduce using rule 69 (Exp)
+
+
+State 69
+
+   31 Object: THIS .
+   34 ObjectB: THIS .
+
+    '.'       reduce using rule 34 (ObjectB)
+    $default  reduce using rule 31 (Object)
+
+
+State 70
+
+   32 Object: NEW . ID '(' ')'
+   33       | NEW . PrimeType Index
+   35 ObjectB: NEW . ID '(' ')'
+   36        | NEW . PrimeType Index
+
+    INT      shift, and go to state 40
+    ID       shift, and go to state 94
+    BOOLEAN  shift, and go to state 42
+
+    PrimeType  go to state 95
+
+
+State 71
+
+   30 Object: ID .
+   72 Exp: ID . Index
+   73    | ID . '.' LENGTH
+   74    | ID . Index '.' LENGTH
+   75    | ID . '.' ID '(' ExpList ')'
+
+    '['  shift, and go to state 80
+    '.'  shift, and go to state 96
+
+    $default  reduce using rule 30 (Object)
+
+    Index  go to state 97
+
+
+State 72
+
+   67 Exp: INTEGER_LITERAL .
+
+    $default  reduce using rule 67 (Exp)
+
+
+State 73
+
+   64 Exp: '!' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 98
+
+
+State 74
+
+   66 Exp: '+' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 99
+
+
+State 75
+
+   65 Exp: '-' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 100
+
+
+State 76
+
+   71 Exp: '(' . Exp ')'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 101
+
+
+State 77
+
+   70 Exp: Object .
+
+    $default  reduce using rule 70 (Exp)
+
+
+State 78
+
+   76 Exp: ObjectB . '.' ID '(' ExpList ')'
+
+    '.'  shift, and go to state 102
+
+
+State 79
+
+   49 Statement: RETURN Exp . ';'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ';'                 shift, and go to state 115
+
+
+State 80
+
+   50 Index: '[' . Exp ']'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 116
+
+
+State 81
+
+   47 Statement: ID '=' . Exp ';'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 117
+
+
+State 82
+
+   48 Statement: ID Index . '=' Exp ';'
+   51 Index: Index . '[' Exp ']'
+
+    '['  shift, and go to state 118
+    '='  shift, and go to state 119
+
+
+State 83
+
+   45 Statement: PRINT '(' . Exp ')' ';'
+   46          | PRINT '(' . STRING_LITERAL ')' ';'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    STRING_LITERAL   shift, and go to state 120
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 121
+
+
+State 84
+
+   40 Statement: '{' '}' .
+
+    $default  reduce using rule 40 (Statement)
+
+
+State 85
+
+   37 StatementList: StatementList . Statement
+   39 Statement: '{' StatementList . '}'
+
+    PRINTLN  shift, and go to state 54
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 57
+    ID       shift, and go to state 58
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+    '}'      shift, and go to state 122
+
+    Statement  go to state 123
+
+
+State 86
+
+   38 StatementList: Statement .
+
+    $default  reduce using rule 38 (StatementList)
+
+
+State 87
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' ID ')' '{' Statement '}' . '}'
+
+    '}'  shift, and go to state 124
+
+
+State 88
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' . '{' VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type ID '(' FormalList ')' . '{' VarDeclList RETURN Exp ';' '}'
+
+    '{'  shift, and go to state 125
+
+
+State 89
+
+   11 FormalList: Type ID . FormalRestList
+
+    $default  reduce using rule 14 (FormalRestList)
+
+    FormalRestList  go to state 126
+
+
+State 90
+
+   44 Statement: PRINTLN '(' STRING_LITERAL . ')' ';'
+
+    ')'  shift, and go to state 127
+
+
+State 91
+
+   43 Statement: PRINTLN '(' Exp . ')' ';'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ')'                 shift, and go to state 128
+
+
+State 92
+
+   41 Statement: IF '(' Exp . ')' Statement ELSE Statement
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ')'                 shift, and go to state 129
+
+
+State 93
+
+   42 Statement: WHILE '(' Exp . ')' Statement
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ')'                 shift, and go to state 130
+
+
+State 94
+
+   20 PrimeType: ID .
+   32 Object: NEW ID . '(' ')'
+   35 ObjectB: NEW ID . '(' ')'
+
+    '('  shift, and go to state 131
+
+    $default  reduce using rule 20 (PrimeType)
+
+
+State 95
+
+   33 Object: NEW PrimeType . Index
+   36 ObjectB: NEW PrimeType . Index
+
+    '['  shift, and go to state 80
+
+    Index  go to state 132
+
+
+State 96
+
+   73 Exp: ID '.' . LENGTH
+   75    | ID '.' . ID '(' ExpList ')'
+
+    LENGTH  shift, and go to state 133
+    ID      shift, and go to state 134
+
+
+State 97
+
+   51 Index: Index . '[' Exp ']'
+   72 Exp: ID Index .
+   74    | ID Index . '.' LENGTH
+
+    '['  shift, and go to state 118
+    '.'  shift, and go to state 135
+
+    $default  reduce using rule 72 (Exp)
+
+
+State 98
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+   64    | '!' Exp .
+
+    '*'  shift, and go to state 111
+    '/'  shift, and go to state 112
+    '+'  shift, and go to state 113
+    '-'  shift, and go to state 114
+
+    $default  reduce using rule 64 (Exp)
+
+
+State 99
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+   66    | '+' Exp .
+
+    $default  reduce using rule 66 (Exp)
+
+
+State 100
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+   65    | '-' Exp .
+
+    $default  reduce using rule 65 (Exp)
+
+
+State 101
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+   71    | '(' Exp . ')'
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ')'                 shift, and go to state 136
+
+
+State 102
+
+   76 Exp: ObjectB '.' . ID '(' ExpList ')'
+
+    ID  shift, and go to state 137
+
+
+State 103
+
+   52 Exp: Exp BOOLAND . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 138
+
+
+State 104
+
+   53 Exp: Exp BOOLOR . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 139
+
+
+State 105
+
+   56 Exp: Exp LESSTHANEQUALTO . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 140
+
+
+State 106
+
+   57 Exp: Exp GREATERTHANEQUALTO . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 141
+
+
+State 107
+
+   54 Exp: Exp BOOLEQUAL . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 142
+
+
+State 108
+
+   55 Exp: Exp BOOLNOTEQUAL . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 143
+
+
+State 109
+
+   58 Exp: Exp '<' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 144
+
+
+State 110
+
+   59 Exp: Exp '>' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 145
+
+
+State 111
+
+   62 Exp: Exp '*' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 146
+
+
+State 112
+
+   63 Exp: Exp '/' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 147
+
+
+State 113
+
+   60 Exp: Exp '+' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 148
+
+
+State 114
+
+   61 Exp: Exp '-' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 149
+
+
+State 115
+
+   49 Statement: RETURN Exp ';' .
+
+    $default  reduce using rule 49 (Statement)
+
+
+State 116
+
+   50 Index: '[' Exp . ']'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ']'                 shift, and go to state 150
+
+
+State 117
+
+   47 Statement: ID '=' Exp . ';'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ';'                 shift, and go to state 151
+
+
+State 118
+
+   51 Index: Index '[' . Exp ']'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 152
+
+
+State 119
+
+   48 Statement: ID Index '=' . Exp ';'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 153
+
+
+State 120
+
+   46 Statement: PRINT '(' STRING_LITERAL . ')' ';'
+
+    ')'  shift, and go to state 154
+
+
+State 121
+
+   45 Statement: PRINT '(' Exp . ')' ';'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ')'                 shift, and go to state 155
+
+
+State 122
+
+   39 Statement: '{' StatementList '}' .
+
+    $default  reduce using rule 39 (Statement)
+
+
+State 123
+
+   37 StatementList: StatementList Statement .
+
+    $default  reduce using rule 37 (StatementList)
+
+
+State 124
+
+    2 MainClass: CLASS ID '{' MAINCLASS '(' STRING '[' ']' ID ')' '{' Statement '}' '}' .
+
+    $default  reduce using rule 2 (MainClass)
+
+
+State 125
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' . VarDeclList StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type ID '(' FormalList ')' '{' . VarDeclList RETURN Exp ';' '}'
+
+    $default  reduce using rule 27 (VarDeclList)
+
+    VarDeclList  go to state 156
+
+
+State 126
+
+   11 FormalList: Type ID FormalRestList .
+   13 FormalRestList: FormalRestList . FormalRest
+
+    ','  shift, and go to state 157
+
+    $default  reduce using rule 11 (FormalList)
+
+    FormalRest  go to state 158
+
+
+State 127
+
+   44 Statement: PRINTLN '(' STRING_LITERAL ')' . ';'
+
+    ';'  shift, and go to state 159
+
+
+State 128
+
+   43 Statement: PRINTLN '(' Exp ')' . ';'
+
+    ';'  shift, and go to state 160
+
+
+State 129
+
+   41 Statement: IF '(' Exp ')' . Statement ELSE Statement
+
+    PRINTLN  shift, and go to state 54
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 57
+    ID       shift, and go to state 58
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+
+    Statement  go to state 161
+
+
+State 130
+
+   42 Statement: WHILE '(' Exp ')' . Statement
+
+    PRINTLN  shift, and go to state 54
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 57
+    ID       shift, and go to state 58
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+
+    Statement  go to state 162
+
+
+State 131
+
+   32 Object: NEW ID '(' . ')'
+   35 ObjectB: NEW ID '(' . ')'
+
+    ')'  shift, and go to state 163
+
+
+State 132
+
+   33 Object: NEW PrimeType Index .
+   36 ObjectB: NEW PrimeType Index .
+   51 Index: Index . '[' Exp ']'
+
+    '['  shift, and go to state 118
+
+    '.'       reduce using rule 36 (ObjectB)
+    $default  reduce using rule 33 (Object)
+
+
+State 133
+
+   73 Exp: ID '.' LENGTH .
+
+    $default  reduce using rule 73 (Exp)
+
+
+State 134
+
+   75 Exp: ID '.' ID . '(' ExpList ')'
+
+    '('  shift, and go to state 164
+
+
+State 135
+
+   74 Exp: ID Index '.' . LENGTH
+
+    LENGTH  shift, and go to state 165
+
+
+State 136
+
+   71 Exp: '(' Exp ')' .
+
+    $default  reduce using rule 71 (Exp)
+
+
+State 137
+
+   76 Exp: ObjectB '.' ID . '(' ExpList ')'
+
+    '('  shift, and go to state 166
+
+
+State 138
+
+   52 Exp: Exp . BOOLAND Exp
+   52    | Exp BOOLAND Exp .
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+
+    $default  reduce using rule 52 (Exp)
+
+
+State 139
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   53    | Exp BOOLOR Exp .
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+
+    $default  reduce using rule 53 (Exp)
+
+
+State 140
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   56    | Exp LESSTHANEQUALTO Exp .
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    '<'  shift, and go to state 109
+    '>'  shift, and go to state 110
+    '*'  shift, and go to state 111
+    '/'  shift, and go to state 112
+    '+'  shift, and go to state 113
+    '-'  shift, and go to state 114
+
+    $default  reduce using rule 56 (Exp)
+
+
+State 141
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   57    | Exp GREATERTHANEQUALTO Exp .
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    '<'  shift, and go to state 109
+    '>'  shift, and go to state 110
+    '*'  shift, and go to state 111
+    '/'  shift, and go to state 112
+    '+'  shift, and go to state 113
+    '-'  shift, and go to state 114
+
+    $default  reduce using rule 57 (Exp)
+
+
+State 142
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   54    | Exp BOOLEQUAL Exp .
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+
+    $default  reduce using rule 54 (Exp)
+
+
+State 143
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   55    | Exp BOOLNOTEQUAL Exp .
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+
+    $default  reduce using rule 55 (Exp)
+
+
+State 144
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   58    | Exp '<' Exp .
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    '*'  shift, and go to state 111
+    '/'  shift, and go to state 112
+    '+'  shift, and go to state 113
+    '-'  shift, and go to state 114
+
+    $default  reduce using rule 58 (Exp)
+
+
+State 145
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   59    | Exp '>' Exp .
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    '*'  shift, and go to state 111
+    '/'  shift, and go to state 112
+    '+'  shift, and go to state 113
+    '-'  shift, and go to state 114
+
+    $default  reduce using rule 59 (Exp)
+
+
+State 146
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   62    | Exp '*' Exp .
+   63    | Exp . '/' Exp
+
+    '+'  shift, and go to state 113
+    '-'  shift, and go to state 114
+
+    $default  reduce using rule 62 (Exp)
+
+
+State 147
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+   63    | Exp '/' Exp .
+
+    '+'  shift, and go to state 113
+    '-'  shift, and go to state 114
+
+    $default  reduce using rule 63 (Exp)
+
+
+State 148
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   60    | Exp '+' Exp .
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    $default  reduce using rule 60 (Exp)
+
+
+State 149
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   61    | Exp '-' Exp .
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    $default  reduce using rule 61 (Exp)
+
+
+State 150
+
+   50 Index: '[' Exp ']' .
+
+    $default  reduce using rule 50 (Index)
+
+
+State 151
+
+   47 Statement: ID '=' Exp ';' .
+
+    $default  reduce using rule 47 (Statement)
+
+
+State 152
+
+   51 Index: Index '[' Exp . ']'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ']'                 shift, and go to state 167
+
+
+State 153
+
+   48 Statement: ID Index '=' Exp . ';'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ';'                 shift, and go to state 168
+
+
+State 154
+
+   46 Statement: PRINT '(' STRING_LITERAL ')' . ';'
+
+    ';'  shift, and go to state 169
+
+
+State 155
+
+   45 Statement: PRINT '(' Exp ')' . ';'
+
+    ';'  shift, and go to state 170
+
+
+State 156
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList . StatementList RETURN Exp ';' '}'
+   10           | PUBLIC Type ID '(' FormalList ')' '{' VarDeclList . RETURN Exp ';' '}'
+   26 VarDeclList: VarDeclList . VarDecl
+
+    PRINTLN  shift, and go to state 54
+    INT      shift, and go to state 20
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 171
+    ID       shift, and go to state 172
+    BOOLEAN  shift, and go to state 22
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+
+    TypeB          go to state 24
+    PrimeTypeB     go to state 25
+    VarDecl        go to state 26
+    StatementList  go to state 173
+    Statement      go to state 86
+
+
+State 157
+
+   15 FormalRest: ',' . Type ID
+
+    INT      shift, and go to state 40
+    ID       shift, and go to state 41
+    BOOLEAN  shift, and go to state 42
+
+    Type       go to state 174
+    PrimeType  go to state 44
+
+
+State 158
+
+   13 FormalRestList: FormalRestList FormalRest .
+
+    $default  reduce using rule 13 (FormalRestList)
+
+
+State 159
+
+   44 Statement: PRINTLN '(' STRING_LITERAL ')' ';' .
+
+    $default  reduce using rule 44 (Statement)
+
+
+State 160
+
+   43 Statement: PRINTLN '(' Exp ')' ';' .
+
+    $default  reduce using rule 43 (Statement)
+
+
+State 161
+
+   41 Statement: IF '(' Exp ')' Statement . ELSE Statement
+
+    ELSE  shift, and go to state 175
+
+
+State 162
+
+   42 Statement: WHILE '(' Exp ')' Statement .
+
+    $default  reduce using rule 42 (Statement)
+
+
+State 163
+
+   32 Object: NEW ID '(' ')' .
+   35 ObjectB: NEW ID '(' ')' .
+
+    '.'       reduce using rule 35 (ObjectB)
+    $default  reduce using rule 32 (Object)
+
+
+State 164
+
+   75 Exp: ID '.' ID '(' . ExpList ')'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    $default  reduce using rule 78 (ExpList)
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 176
+    ExpList  go to state 177
+
+
+State 165
+
+   74 Exp: ID Index '.' LENGTH .
+
+    $default  reduce using rule 74 (Exp)
+
+
+State 166
+
+   76 Exp: ObjectB '.' ID '(' . ExpList ')'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    $default  reduce using rule 78 (ExpList)
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 176
+    ExpList  go to state 178
+
+
+State 167
+
+   51 Index: Index '[' Exp ']' .
+
+    $default  reduce using rule 51 (Index)
+
+
+State 168
+
+   48 Statement: ID Index '=' Exp ';' .
+
+    $default  reduce using rule 48 (Statement)
+
+
+State 169
+
+   46 Statement: PRINT '(' STRING_LITERAL ')' ';' .
+
+    $default  reduce using rule 46 (Statement)
+
+
+State 170
+
+   45 Statement: PRINT '(' Exp ')' ';' .
+
+    $default  reduce using rule 45 (Statement)
+
+
+State 171
+
+   10 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList RETURN . Exp ';' '}'
+   49 Statement: RETURN . Exp ';'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 179
+
+
+State 172
+
+   23 TypeB: ID . '[' ']'
+   29 VarDecl: ID . ID ';'
+   47 Statement: ID . '=' Exp ';'
+   48          | ID . Index '=' Exp ';'
+
+    ID   shift, and go to state 29
+    '['  shift, and go to state 180
+    '='  shift, and go to state 81
+
+    Index  go to state 82
+
+
+State 173
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList StatementList . RETURN Exp ';' '}'
+   37 StatementList: StatementList . Statement
+
+    PRINTLN  shift, and go to state 54
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 181
+    ID       shift, and go to state 58
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+
+    Statement  go to state 123
+
+
+State 174
+
+   15 FormalRest: ',' Type . ID
+   17 Type: Type . '[' ']'
+
+    ID   shift, and go to state 182
+    '['  shift, and go to state 50
+
+
+State 175
+
+   41 Statement: IF '(' Exp ')' Statement ELSE . Statement
+
+    PRINTLN  shift, and go to state 54
+    IF       shift, and go to state 55
+    WHILE    shift, and go to state 56
+    RETURN   shift, and go to state 57
+    ID       shift, and go to state 58
+    PRINT    shift, and go to state 59
+    '{'      shift, and go to state 60
+
+    Statement  go to state 183
+
+
+State 176
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+   77 ExpList: Exp . ExpRestList
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+
+    $default  reduce using rule 80 (ExpRestList)
+
+    ExpRestList  go to state 184
+
+
+State 177
+
+   75 Exp: ID '.' ID '(' ExpList . ')'
+
+    ')'  shift, and go to state 185
+
+
+State 178
+
+   76 Exp: ObjectB '.' ID '(' ExpList . ')'
+
+    ')'  shift, and go to state 186
+
+
+State 179
+
+   10 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList RETURN Exp . ';' '}'
+   49 Statement: RETURN Exp . ';'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ';'                 shift, and go to state 187
+
+
+State 180
+
+   23 TypeB: ID '[' . ']'
+   50 Index: '[' . Exp ']'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+    ']'              shift, and go to state 39
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 116
+
+
+State 181
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList StatementList RETURN . Exp ';' '}'
+   49 Statement: RETURN . Exp ';'
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 188
+
+
+State 182
+
+   15 FormalRest: ',' Type ID .
+
+    $default  reduce using rule 15 (FormalRest)
+
+
+State 183
+
+   41 Statement: IF '(' Exp ')' Statement ELSE Statement .
+
+    $default  reduce using rule 41 (Statement)
+
+
+State 184
+
+   77 ExpList: Exp ExpRestList .
+   79 ExpRestList: ExpRestList . ExpRest
+
+    ','  shift, and go to state 189
+
+    $default  reduce using rule 77 (ExpList)
+
+    ExpRest  go to state 190
+
+
+State 185
+
+   75 Exp: ID '.' ID '(' ExpList ')' .
+
+    $default  reduce using rule 75 (Exp)
+
+
+State 186
+
+   76 Exp: ObjectB '.' ID '(' ExpList ')' .
+
+    $default  reduce using rule 76 (Exp)
+
+
+State 187
+
+   10 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList RETURN Exp ';' . '}'
+   49 Statement: RETURN Exp ';' .
+
+    '}'  shift, and go to state 191
+
+    $default  reduce using rule 49 (Statement)
+
+
+State 188
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList StatementList RETURN Exp . ';' '}'
+   49 Statement: RETURN Exp . ';'
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+    ';'                 shift, and go to state 192
+
+
+State 189
+
+   81 ExpRest: ',' . Exp
+
+    TTRUE            shift, and go to state 67
+    TFALSE           shift, and go to state 68
+    THIS             shift, and go to state 69
+    NEW              shift, and go to state 70
+    ID               shift, and go to state 71
+    INTEGER_LITERAL  shift, and go to state 72
+    '!'              shift, and go to state 73
+    '+'              shift, and go to state 74
+    '-'              shift, and go to state 75
+    '('              shift, and go to state 76
+
+    Object   go to state 77
+    ObjectB  go to state 78
+    Exp      go to state 193
+
+
+State 190
+
+   79 ExpRestList: ExpRestList ExpRest .
+
+    $default  reduce using rule 79 (ExpRestList)
+
+
+State 191
+
+   10 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList RETURN Exp ';' '}' .
+
+    $default  reduce using rule 10 (MethodDecl)
+
+
+State 192
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList StatementList RETURN Exp ';' . '}'
+   49 Statement: RETURN Exp ';' .
+
+    '}'  shift, and go to state 194
+
+    $default  reduce using rule 49 (Statement)
+
+
+State 193
+
+   52 Exp: Exp . BOOLAND Exp
+   53    | Exp . BOOLOR Exp
+   54    | Exp . BOOLEQUAL Exp
+   55    | Exp . BOOLNOTEQUAL Exp
+   56    | Exp . LESSTHANEQUALTO Exp
+   57    | Exp . GREATERTHANEQUALTO Exp
+   58    | Exp . '<' Exp
+   59    | Exp . '>' Exp
+   60    | Exp . '+' Exp
+   61    | Exp . '-' Exp
+   62    | Exp . '*' Exp
+   63    | Exp . '/' Exp
+   81 ExpRest: ',' Exp .
+
+    BOOLAND             shift, and go to state 103
+    BOOLOR              shift, and go to state 104
+    LESSTHANEQUALTO     shift, and go to state 105
+    GREATERTHANEQUALTO  shift, and go to state 106
+    BOOLEQUAL           shift, and go to state 107
+    BOOLNOTEQUAL        shift, and go to state 108
+    '<'                 shift, and go to state 109
+    '>'                 shift, and go to state 110
+    '*'                 shift, and go to state 111
+    '/'                 shift, and go to state 112
+    '+'                 shift, and go to state 113
+    '-'                 shift, and go to state 114
+
+    $default  reduce using rule 81 (ExpRest)
+
+
+State 194
+
+    9 MethodDecl: PUBLIC Type ID '(' FormalList ')' '{' VarDeclList StatementList RETURN Exp ';' '}' .
+
+    $default  reduce using rule 9 (MethodDecl)

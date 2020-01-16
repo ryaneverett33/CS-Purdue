@@ -1,0 +1,43 @@
+int[] arr = new int[5];
+int[][] arr2 = new int[2][3];
+
+arr [1d]:
+5 - size1
+0 - first element
+1
+2
+3
+4 - last element
+
+arr2:
+2 - size1
+3 - size2
+0 0 - first element of first arr
+0 1
+0 2 - last element of first arr
+1 0 - first element of last arr
+1 1
+1 2 - last element of last arr
+
+class Obj {
+    int a;
+    boolean b;
+    int func() {}
+}
+Obj: (size 2 bytes)
+a - first variable
+b - last variable
+func:
+    arguments on stack
+    last argument is object
+
+
+int func() {
+    int a;
+    int b;
+}
+func: (size: 2 bytes)
+a - first variable
+b - last variable
+r1: address of func array
+

@@ -1,0 +1,78 @@
+Finish Constructors for TAC /
+    CSET                    /
+    CSETNEW                 /
+    CSETPOP                 /
+    CGOBACK                 /
+    CIF                     /
+    CELSE                   /
+    --PRINT--               /
+    CPUSH                   /
+    CCALL                   /
+    CRETURN                 /
+    CARR                    /
+    CSTORE                  /
+    CGET                    /
+    CLENGTH                 /
+Finish debug string conversion for TAC /
+    CSET                    /
+    CSETNEW                 /
+    CSETPOP                 /
+    CGOBACK                 /
+    CIF                     /
+    CELSE                   /
+    --PRINT--               /
+    CPUSH                   /
+    CCALL                   /
+    CRETURN                 /
+    CARR                    /
+    CSTORE                  /
+    CGET                    /
+    CLENGTH                 /
+Store className in method
+Figure out direction of ExpList
+
+Finish Converting to TAC
+    Statements
+        List                /
+        Bool                /
+        Print               /
+        Assign              /
+        Return              /
+        Empty               /
+    Expressions
+        Binary              /
+            - Add support for booleans
+        Unary               /
+        Index               /
+        Length              /
+        Parens              /
+        IndexLength         /
+        Object              /
+        ObjectCall          /
+
+Converter
+    - Finish converting methods/classes to TAC (Main implemented) /
+Change SymbolTable to account for class size /
+Finish basic compile to ASM
+    - Implement finding method for calling
+        - implement string getFunctionLabel(classname, methodname)
+    - Implement storing stack offset information
+        - implement offset table
+    - Implement State tracking for symbolic registers
+        // ex v1 <- pop x, v1 <- ARR 0        v1: isArray, index: 0, size: 1 (from x info), init: True
+        // ex v1 <- pop x, v1 <- LENGTH v1    v1: isArray, index: -1, size: 1 (from x info), init: True
+    - Implement compiling AddressCode
+        CSET                    
+        CSETNEW                 
+        CSETPOP                 
+        CGOBACK                 
+        CIF                     
+        CELSE                   
+        --PRINT--               /
+        CPUSH                   /
+        CCALL                   
+        CRETURN                 
+        CARR                    
+        CSTORE                  
+        CGET                    
+        CLENGTH                 

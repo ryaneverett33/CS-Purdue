@@ -1,0 +1,112 @@
+            MiniJava+ Lexical and Syntax Forms
+
+NOTE (Feb. 16): This is a slight revision of the document used in Project 1.
+There are two changes. The first one concerns nonterminal Type and a related
+new nonterminal PrimeType. The second concerns nonterminal Object. See Project 2
+handout for more detials.
+
+MiniJava+ is a subset of Java. The meaning of a MiniJava+ program is given 
+by its meaning as a Java program. Overloading is not allowed in MiniJava+. 
+The MiniJava+ statement System.out.println( …); can only print integers and 
+string constants. We do not have string variables.
+The MiniJava+ expression e.length only applies to expressions that are arrays.
+
+*********************
+* TOKEN DEFINITIONS *
+*********************
+
+Identifiers: An identifier is a sequence of letters, digits, and underscores,
+starting with a letter. Uppercase letters are distinguished from lowercase. 
+In this specification, the symbol id stands for an identifier.
+
+Integer literals: A sequence of decimal digits is an integer constant 
+that denotes the corresponding integer value. Leading zeros are allowed.
+
+In this specification the symbol INTEGER_LITERAL stands for an integer 
+constant and the symbol STRING_LITERAL stands for a quoted string, e.g.
+ "hello world".
+
+Binary operators: A binary operator is one of
+
+&& || < >  <= >= == != + - * /
+
+In this specification the symbol op stands for a binary operator.
+
+We treat ++ as a single token, even though this token does not appear in any production rules. This is to avoid a different semantic meaning of ++ than in Java, while we still allow a unary + operator and a binary + operator. Expression a + + b then is equivalent to a+b, but a ++ b will violate the syntax rule in MiniJava+.
+
+Comments: A comment may appear between any two tokens. There are two forms 
+of comments: One starts with /*, ends with */, with no other */ in between;
+another begins with // and goes to the end of the line.
+
+****************
+* SYNTAX FORMS *
+****************
+
+NOTE 1: The notation N*, where N is a nonterminal, means
+ 0, 1, or more repetitions of N.
+
+NOTE 2: Not all programs that satisfy the following syntax forms are
+actually valid programs, but the type checking step of the compiler will
+identify such invalid programs.
+
+NOTE 3: In the production rules, the symbol “:” means “derives”. We avoid using “->” in case it may be confused with operators in the right-hand side. ":" followed by a blank right-hand side indicates an empty rule.
+
+NOTE 4: Semantic meaning of the program constructs formed by the production rules follow that in Java. Some explanations will be given in Project 2 to enhance the understanding. In this project, please try deriving statements using the production rules and see what they look like.
+
+NOTE 5: A short sample program is appended. Further samples may be posted as needed.
+
+  Program  : MainClass ClassDecl*
+ MainClass : class id { public static void main ( String [] id )
+               { Statement }}
+ ClassDecl : class id { VarDecl* MethodDecl* }
+           : class id extends id { VarDecl* MethodDecl* }
+   VarDecl : Type id ;
+
+MethodDecl : public Type id ( FormalList )
+               { VarDecl* Statement* return Exp ;}
+
+FormalList : Type id FormalRest*
+           :
+
+FormalRest :, Type id
+
+ PrimeType : int
+           : boolean
+           : id
+
+      Type : PrimeType
+           : Type [ ]
+
+ Statement : { Statement* }
+           : if ( Exp ) Statement else Statement
+           : while ( Exp ) Statement
+           : System.out.println ( Exp ) ;
+           : System.out.println ( STRING_LITERAL ) ;
+           : System.out.print ( Exp ) ;
+           : System.out.print ( STRING_LITERAL ) ;
+           : id = Exp ;
+           : id Index = Exp ;
+		   : return Exp ;
+    Index  : [ Exp ]
+           : Index [Exp]
+       Exp : Exp op Exp
+           : ! Exp
+           : + Exp
+           : - Exp
+           : ( Exp )
+           : id Index
+           : id . length
+           : id Index . length
+           : INTEGER_LITERAL
+           : true
+           : false
+           : Object
+           : Object . id ( ExpList )
+  Object   : id
+           : this
+           : new id ()
+           : new PrimeType Index
+   ExpList : Exp ExpRest*
+           :
+  ExpRest  :  ,Exp
+

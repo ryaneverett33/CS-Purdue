@@ -1,0 +1,19 @@
+basicTest.java          T I
+extendTest.java         T I
+interpretTest.java      T I
+outoforder.java         T I
+overloadedMethod.java   T I
+lengthTest.java         T I
+arrayTests.java         T I
+basicCall.java          T I
+basicCallWithArgs.java  T
+recursiveTest.java      T I
+2darrayTest.java        T I
+
+
+Supplied tests
+simple.java         WORKS
+array.java             WORKS weird shit with precedence
+HanoiDemo.java  WORKS
+loop.java               WORKS
+number.java        WORKS

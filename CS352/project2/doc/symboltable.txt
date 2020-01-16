@@ -1,0 +1,10 @@
+Objects that have a Symbol Table
+- Program (Global Symbol Table)
+- ClassDecl/MainClass
+- MethodDecl [inherits SymbolTable from ClassDecl]
+
+Program Symbol Table
+- Only stores Classes
+
+Variables
+- Check if initialized first

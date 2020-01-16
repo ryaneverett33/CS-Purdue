@@ -1,0 +1,29 @@
+AST Construction X
+- Objects built X
+- Yacc semantic stack working X
+- Figure out lists X
+- Finish yacc Construction X
+- boolean[][] is broken X
+- Combine ExpList and ExpRestList X
+- Combine FormalList and FormalRestList X
+- graph.java is broken X
+Typechecker
+- Fill out Symbol Table X
+- MethodDecl return array
+- Arguments accept array
+- Stop using PType and use ReturnType instead X
+- Typecheck index
+- resolveType should use error printing function X
+- resolveType needs access to symbol tables X
+- merge resolveType() and typecheck() X
+- Refactor SymbolTable to automatically resolve inheritance X
+- Refactor to getMethodInfo X
+Interpreter
+- Implement Object Call X
+- Implement Assign Statement
+- Finish implementing expressions
+- Statement::Assign new PrimeType[Index] returns an PTYPE array, check if array or if object instead of switching on type
+
+
+Bugs
+in indexTest.java, symbol arr has a returnType with no array but varInfo->returnValue is an array X

@@ -1,0 +1,91 @@
+Types and Their Formats:
+    CSET        v1 <- a, v1 <- !true, v1<- 1 + 1
+    CSETNEW     v1 <- new Obj
+    CSETPOP     v1 <- pop x
+    CGOTO       goto loop_done
+    CIF         If v1 == v2 goto loop_done
+    CSPRINT     CSPRINT message
+    CPRINT      CPRINT v1, CPRINT 1
+    CPUSH       push v1, push true
+    CCALL       v2 <- v1 call getA
+    CRETURN     return v1, return true
+    CARR        v1 <- ARR 5
+    CSTORE      v1 <- STORE 5, v1 <- STORE v2
+    CGET        v1 <- GET 0, v1 <- GET 0 0
+    CLENGTH     v1 <- LENGTH v1
+Statements:
+    SBool
+        //ex: if (true) {x=1} else {x=2}
+        if true goto truecase
+        x <- 2
+        truecase:
+            x <-1
+        //ex: while(true) {x=1}
+        loop:
+            if true goto loop_run
+        loop_run:
+            x <-1
+            if true goto loop_run
+
+    Print
+        // println 1
+        v1 <- 1
+        CPRINTLN v1
+        // print "hello world"
+        message: "hello world"
+        CSPRINT message
+    Assign
+        // x = 5
+        x <- 5
+    Return
+        // return x
+        v1 <- x
+        return v1
+Expressions:
+    Binary:
+        see BinaryCaseTAC.txt
+    Unary:
+        v1 <- -1
+        v1 <- pop x, v1 <- !v1
+    Index: 
+        // ex: x[0]
+        v1 <- x
+        v1 <- ARR 0
+        v1 <- GET
+    Length:
+        // ex: x.length
+        v1 <- x
+        v1 <- ARR 0
+        v1 <- LENGTH
+    ?Parens?
+    IndexLength
+        // ex: x[0].length
+        v1 <- x
+        v1 <- ARR 0
+        v1 <- LENGTH
+    Object
+        // ex: x
+        v1 <- x
+        // ex: this
+        v1 <- THIS
+        // ex: new x()
+        v1 <- new x
+        // ex: new int[5]
+        v1 <- new INT
+        v1 <- ARR 5
+    ObjectCall
+        // ex: new x().call()
+        v1 <- new x
+        push v1
+        v1 <- v1 call call
+        // ex: this.call()
+        v1 <- THIS
+        push v1
+        v1 <- v1 call call
+        // ex: x.run(b,3)
+        v1 <- x
+        v2 <- b
+        push v2
+        push 3
+        push v1
+        v1 <- v1 call run

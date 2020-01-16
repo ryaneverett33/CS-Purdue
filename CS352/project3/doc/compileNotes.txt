@@ -1,0 +1,83 @@
+Keep track during compilation
+- var offset in stack
+- last TAC instruction
+- lineno
+
+Stack base
+- reset at start of method
+- restore at end of method (return)
+r9
+
+Binary operation issue
+    v1 <- 1 + 1 becomes:
+    mov r10, #1
+    add r1, r10, #1
+Before/after calling printf malloc
+    push {lr}
+    pop {lr}
+
+Return:
+    Main:
+        mov lr from r11 to pc
+    Method (root):
+        Move result to r0
+        set pc to lr saved on stack
+    Method (branch):
+        pop lr to pc
+Branching:
+    {Class}_{method}_b{target number}
+    bleq if true
+    blne if false
+Main function
+    saves link register to r11
+    restores at the end of the function
+
+Method invocation
+    Main:
+        save lr to r11
+    Method (root):
+        setup stack base
+            at invoke, points to obj ref
+            after setup, points to arg0
+        push lr
+    Method (branch):
+        push lr
+While loop
+    save line when branching in while loop
+    When encountering a MARK code:
+        - save line number
+    When encountering a GOBACK code: 
+        - calculate the difference between current line number and saved
+        - subtract lr by difference (fixed to balign)
+        - mov pc, lr
+Arrays
+    ARR called after NEW - create an array of size defined by arr
+    ARR called after assignment - move array to location
+    ARR called with (-1,-1) or (-1) refers to the metadata of the array
+    GET {x1,x2} is effectively a psudeo instruction, expanded would be:
+        ARR {x1, x2}
+        GET
+examples in boolop.s numop.s
+Binary Operators
+    Boolean:
+        &&  -> AND
+        ||  -> ORR
+        ==  -> CMP
+        !=  -> CMPNE
+    Number:
+        <   ->  LT  opposite: >=(GE)
+        >   ->  GT  opposite: <=(LE)
+        <=  ->  LE  opposite: > (GT)
+        >=  ->  GE  opposite: < (LT)
+        ==  ->  EQ  opposite: !=(NE)
+        !=  ->  NE  opposite: ==(EQ)
+Unary Operators
+    Boolean:
+        !   -> cmp r5, #0; moveq r1, #1, movne r1, #0
+    Number:
+        +   // don't do anything
+        -   NEG num
+Calling Procedure (after pushing objects)
+    push object
+    bl function label
+    mov v1, r0  // the stored result is in
