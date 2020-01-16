@@ -16,3 +16,9 @@
 [submodule "CS390VR/CS390VRWebPage"]
 	path = CS390VR/CS390VRWebPage
 	url = https://github.com/Retera/CS390VRWebPage
+[submodule "CS407/noted"]
+	path = CS407/noted
+	url = https://github.com/will-johnston/noted
+[submodule "CS408/noted"]
+	path = CS408/noted
+	url = https://github.com/will-johnston/noted
